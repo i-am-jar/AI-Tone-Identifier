@@ -7,6 +7,8 @@ from langchain.llms import OpenAI
 from langchain.prompts import PromptTemplate
 from fastapi import FastAPI, File, UploadFile
 from langchain.llms import LangServeLLM
+import os
+os.environ["OPENAI_API_KEY"] = "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"
 
 app = FastAPI()
 
@@ -32,7 +34,7 @@ Tone:"""
 prompt = PromptTemplate(template=prompt_template, input_variables=["text"])
 
 @app.post("/upload")
-async def upload_file(file: UploadFile = File(...)):
+async def upload_file(file: UploadFile = File('./Foreign Policy.pdf')):
     # Load and split the document
     document = loader.load(file.file.read())
     texts = text_splitter.split_documents(document)
