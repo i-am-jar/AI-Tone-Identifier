@@ -3,6 +3,7 @@ from fastapi import FastAPI
 from langchain.prompts import ChatPromptTemplate
 from langchain.chat_models import ChatOpenAI
 from langserve import add_routes
+from chain import get_chain
 
 import os
 os.environ["OPENAI_API_KEY"] = "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"
@@ -14,8 +15,8 @@ app = FastAPI(
 )
 
 add_routes(
-    app,
-    ChatOpenAI(),
+    app, 
+    get_chain(),
     path="/openai",
 )
 
