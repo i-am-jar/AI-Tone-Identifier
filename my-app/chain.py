@@ -14,7 +14,7 @@ loader = PyPDFLoader("J. Acker Hierarchies, Jobs, Bodies -- A Theory of Gendered
 documents = loader.load()
 
 # Split the text into chunks
-text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
+text_splitter = CharacterTextSplitter(chunk_size=700, chunk_overlap=200)
 texts = text_splitter.split_documents(documents)
 
 # Create embeddings for the text chunks
