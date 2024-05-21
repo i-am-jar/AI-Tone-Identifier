@@ -7,10 +7,10 @@ from langchain.chains import RetrievalQA, LLMChain, SimpleSequentialChain
 from langchain.prompts import PromptTemplate
 
 import os
-os.environ["OPENAI_API_KEY"] = "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"
+os.environ["OPENAI_API_KEY"] = "ENTER-OPENAI-KEY-HERE"
 
 # Load the PDF document
-loader = PyPDFLoader("J. Acker Hierarchies, Jobs, Bodies -- A Theory of Gendered Organizations.pdf")
+loader = PyPDFLoader("LOAD-PDF-HERE")
 documents = loader.load()
 
 # Split the text into chunks
