@@ -5,7 +5,7 @@ from langserve import add_routes
 from chain import get_chain
 
 import os
-os.environ["OPENAI_API_KEY"] = "ENTER-OPENAI-KEY-HERE"
+os.environ["OPENAI_API_KEY"] = "ENTER-YOUR-OPENAI-KEY-HERE"
 
 app = FastAPI(
     title="LangChain Server",
