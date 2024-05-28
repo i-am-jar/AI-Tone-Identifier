@@ -7,7 +7,7 @@ from langchain.chains import RetrievalQA, LLMChain, SimpleSequentialChain
 from langchain.prompts import PromptTemplate
 
 import os
-os.environ["OPENAI_API_KEY"] = "ENTER-OPENAI-KEY-HERE"
+os.environ["OPENAI_API_KEY"] = "ENTER API KEY HERE"
 
 # Load the PDF document
 loader = PyPDFLoader("LOAD-PDF-HERE")
@@ -38,6 +38,8 @@ Use of irony.
 
 # Query the retrieval chain with the style prompt
 style_result = qa.run(style_prompt)
+# print(style_result)
+#^ To see style result being used in query chain 
 
 # Define the query answering prompt template
 query_prompt_template = PromptTemplate(
