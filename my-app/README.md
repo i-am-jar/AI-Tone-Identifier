@@ -1,79 +1,48 @@
-# my-app
+# PDF Query Answering with Writing Style Identification
 
-## Installation
+This project demonstrates how to use the Langchain library to load a PDF document, split it into chunks, create embeddings for the chunks, and set up a retrieval chain to answer queries based on the content of the PDF. Additionally, it identifies the writing style of the text and answers queries in the same style.
 
-Install the LangChain CLI if you haven't yet
+## Prerequisites
 
-```bash
-pip install -U langchain-cli
-```
+Before running the code, make sure you have the following dependencies installed:
 
-## Adding packages
+- langchain
+- faiss-cpu
+- openai
 
-```bash
-# adding packages from 
-# https://github.com/langchain-ai/langchain/tree/master/templates
-langchain app add $PROJECT_NAME
+You can install them using pip:
+pip install langchain faiss-cpu openai
 
-# adding custom GitHub repo packages
-langchain app add --repo $OWNER/$REPO
-# or with whole git string (supports other git providers):
-# langchain app add git+https://github.com/hwchase17/chain-of-verification
+## Setup
 
-# with a custom api mount point (defaults to `/{package_name}`)
-langchain app add $PROJECT_NAME --api_path=/my/custom/path/rag
-```
+1. Replace `"ENTER API KEY HERE"` with your actual OpenAI API key.
+2. Replace `"LOAD-PDF-HERE"` with the path to the PDF file you want to load.
 
-Note: you remove packages by their api path
+## Usage
 
-```bash
-langchain app remove my/custom/path/rag
-```
+1. Run the script.
+2. Enter your query when prompted.
+3. The script will identify the writing style of the text in the PDF and answer your query in the same style.
 
-## Setup LangSmith (Optional)
-LangSmith will help us trace, monitor and debug LangChain applications. 
-LangSmith is currently in private beta, you can sign up [here](https://smith.langchain.com/). 
-If you don't have access, you can skip this section
+## How it works
 
+1. The script loads the PDF document using `PyPDFLoader` from the Langchain library.
+2. It splits the text into chunks using `CharacterTextSplitter` with a specified chunk size and overlap.
+3. Embeddings are created for the text chunks using `OpenAIEmbeddings`.
+4. A retrieval chain is set up using `RetrievalQA` with the specified language model (OpenAI) and the document search index.
+5. A writing style identification prompt is defined to analyze the text based on various linguistic features.
+6. The retrieval chain is queried with the style prompt to identify the writing style of the text.
+7. A query answering prompt template is defined, incorporating the identified writing style.
+8. The query answering chain is set up using the prompt template and the language model.
+9. The user is prompted to enter a query.
+10. The query chain is run with the user query, and the final result is printed, answering the query in the identified writing style.
 
-```shell
-export LANGCHAIN_TRACING_V2=true
-export LANGCHAIN_API_KEY=<your-api-key>
-export LANGCHAIN_PROJECT=<your-project>  # if not specified, defaults to "default"
-```
+## Customization
 
-## Launch LangServe
+- You can adjust the `chunk_size` and `chunk_overlap` parameters in the `CharacterTextSplitter` to control the size and overlap of the text chunks.
+- The `temperature` parameter in `OpenAI` can be modified to control the randomness of the generated responses.
+- The writing style identification prompt can be customized to focus on different linguistic features or aspects of writing style.
 
-```bash
-langchain serve
-```
+## License
 
-## Running in Docker
-
-This project folder includes a Dockerfile that allows you to easily build and host your LangServe app.
-
-### Building the Image
-
-To build the image, you simply:
-
-```shell
-docker build . -t my-langserve-app
-```
-
-If you tag your image with something other than `my-langserve-app`,
-note it for use in the next step.
-
-### Running the Image Locally
-
-To run the image, you'll need to include any environment variables
-necessary for your application.
-
-In the below example, we inject the `OPENAI_API_KEY` environment
-variable with the value set in my local environment
-(`$OPENAI_API_KEY`)
-
-We also expose port 8080 with the `-p 8080:8080` option.
-
-```shell
-docker run -e OPENAI_API_KEY=$OPENAI_API_KEY -p 8080:8080 my-langserve-app
-```
+This project is licensed under the [MIT License](LICENSE).
